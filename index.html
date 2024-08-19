@@ -7,25 +7,48 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
    </head>
    <body>
-      <div class="login-form">
+      <div class="login-form" id="Login">
          <div class="text">
             LOGIN
          </div>
+        <p class="error"></p>
          <form>
             <div class="field">
                <div class="fas fa-envelope"></div>
-               <input type="text" placeholder="Email or Phone">
+               <input type="text" placeholder="Email or Phone" id="emaill">
             </div>
             <div class="field">
                <div class="fas fa-lock"></div>
-               <input type="password" placeholder="Password">
+               <input type="password" placeholder="Password" id="passwordl">
             </div>
-            <button>LOGIN</button>
+            <button id="btnl">LOGIN</button>
             <div class="link">
                Not a member?
-               <a href="#">Signup now</a>
+               <a href="#" id="Signupa">Signup now</a>
             </div>
          </form>
       </div>
+      <div class="Signup-form" id="Signup" style="display: none;">
+         <div class="text">
+            Signup
+        </div>
+        <p class="error"></p>
+         <form>
+             <div class="field">
+                 <div class="fas fa-envelope"></div>
+                 <input type="text" placeholder="Email or Phone" id="email">
+            </div>
+            <div class="field">
+               <div class="fas fa-lock"></div>
+               <input type="password" placeholder="Password" id="password">
+            </div>
+            <button id="btns">SIGNUP</button>
+            <div class="link">
+               Not a member?
+               <a href="#" id="logina">Login</a>
+            </div>
+         </form>
+      </div>
+      <script type="module" src="app.js"></script>
    </body>
 </html>
