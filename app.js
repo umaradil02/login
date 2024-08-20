@@ -1,28 +1,41 @@
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-analytics.js";
-  import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,onAuthStateChanged,signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+  import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,onAuthStateChanged,signOut, sendPasswordResetEmail, fetchSignInMethodsForEmail,} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
   import { app } from "./firebase.js"; 
   const auth = getAuth(app);
   const signupuser = async (e) => {
       e.preventDefault();
       try {
           const email = document.querySelector('#email');
-          console.log(email);
           const password = document.querySelector('#password');
-        console.log(password);
+          const emailicon = document.querySelector("#emailicons");
+        const passicon = document.querySelector("#passicons");
         if(email.value == ""){
             email.placeholder = "Plz Provide Email "
             email.classList.add("placeholder-red")
+            emailicon.classList.add("bxs-error")
+          emailicon.classList.add("fa-solid")
+          emailicon.classList.remove("bxs-envelope")
             setTimeout(() => {
                 email.placeholder = "Email or Phone";
                 email.classList.remove("placeholder-red");
+                emailicon.classList.remove("fa-solid")
+                emailicon.classList.add("bxs-envelope")
+                emailicon.classList.remove("bxs-error")
             }, 2000);
+            return
         }
         else if(password.value == ""){
             password.placeholder = "Plz Provide Password "
             password.classList.add("placeholder-red")
+            passicon.classList.add("bxs-error")
+            passicon.classList.add("bxs-solid")
+            passicon.classList.remove("fa-lock")
             setTimeout(() => {
                 password.placeholder = "Password"
                 password.classList.remove("placeholder-red")
+                passicon.classList.add("bxs-lock")
+                passicon.classList.remove("bxs-error")
+                passicon.classList.remove("fa-solid")
             }, 2000);
             
         }
@@ -53,27 +66,40 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.5/firebas
     }
 
 }
+
 const loginuser = async (e) => {
     e.preventDefault();
     try {
         const email = document.querySelector('#emaill');
-        console.log(email);
         const password = document.querySelector('#passwordl');
-      console.log(password);
+        const emailicon = document.querySelector("#emailicon");
+        const passicon = document.querySelector("#passicon");
       if(email.value == ""){
-          email.placeholder = "Plz Provide Email "
+          email.placeholder = "Plz Enter Email "
           email.classList.add("placeholder-red")
+          emailicon.classList.add("bxs-error")
+          emailicon.classList.add("fa-solid")
+          emailicon.classList.remove("bxs-envelope")
           setTimeout(() => {
               email.placeholder = "Email or Phone";
               email.classList.remove("placeholder-red");
+              emailicon.classList.remove("fa-solid")
+              emailicon.classList.add("bxs-envelope")
+              emailicon.classList.remove("bxs-error")
           }, 2000);
       }
       else if(password.value == ""){
-          password.placeholder = "Plz Provide Password "
+          password.placeholder = "Plz Enter Password "
           password.classList.add("placeholder-red")
+          passicon.classList.add("bxs-error")
+          passicon.classList.add("fa-solid")
+          passicon.classList.remove("bxs-lock")
           setTimeout(() => {
               password.placeholder = "Password"
               password.classList.remove("placeholder-red")
+              passicon.classList.add("bxs-lock")
+              passicon.classList.remove("bxs-error")
+              passicon.classList.remove("fa-solid")
           }, 2000);
           
       }
@@ -106,15 +132,84 @@ const loginuser = async (e) => {
 
 }
 
+const resetpassword = async (e) => {
+    e.preventDefault();
+    try {
+      const email = document.querySelector('#emailr');
+      const emailicon = document.querySelector("#emailiconr");
+    //   console.log(email);
+      if (email.value == "") {
+        email.placeholder = "Plz Enter Email ";
+        email.classList.add("placeholder-red");
+        emailicon.classList.add("bxs-error")
+        emailicon.classList.add("fa-solid")
+        emailicon.classList.remove("bxs-envelope")
+        setTimeout(() => {
+          email.placeholder = "Email or Phone";
+          email.classList.remove("placeholder-red");
+          emailicon.classList.remove("fa-solid")
+          emailicon.classList.add("bxs-envelope")
+          emailicon.classList.remove("bxs-error")
+        }, 2000);
+        return;
+      }
+    //   const methods = await fetchSignInMethodsForEmail(auth, email.value);
+    //   if (methods.length === 0) {
+    //     let errortxt = document.querySelector("#etxt");
+    //     errortxt.innerText = "Email does not exist";
+    //     setTimeout(() => {
+    //       errortxt.innerText = "";
+    //     }, 2000);
+    //     // return;
+    //   }
+      await sendPasswordResetEmail(auth, email.value);
+      alert("email sent");
+    } catch (e) {
+      const errorMessage = e.message;
+      console.log(errorMessage);
+      if (errorMessage == "Firebase: Error (auth/invalid-email).") {
+        let errortxt = document.querySelector("#etxt");
+        errortxt.innerText = "plz type correct email format!";
+        setTimeout(() => {
+          errortxt.innerText = '';
+        }, 2000);
+        return;
+      } else if (errorMessage == "Firebase: Error (auth/invalid-credential).") {
+        let errortxt = document.querySelector("#etxt");
+        errortxt.innerText = "Email is wrong!";
+        setTimeout(() => {
+          errortxt.innerText = "";
+        }, 2000);
+        return;
+      }
+    }
+  }
+
+
 const signupanc = document.querySelector("#Signupa");
 signupanc.addEventListener("click", () => {
     document.querySelector("#Signup").style.display = "block";
     document.querySelector("#Login").style.display = "none";
+    document.querySelector("#forgotp").style.display = "none";
 });
 const loginanc = document.querySelector("#logina");
 loginanc.addEventListener("click", () => {
     document.querySelector("#Signup").style.display = "none";
     document.querySelector("#Login").style.display = "block";
+    document.querySelector("#forgotp").style.display = "none";
+});
+const forgotanc = document.querySelector("#forgot");
+forgotanc.addEventListener("click", () => {
+    document.querySelector("#Signup").style.display = "none";
+    document.querySelector("#Login").style.display = "none";
+    document.querySelector("#forgotp").style.display = "block";
+});
+const loginfanc = document.querySelector("#loginf");
+loginfanc.addEventListener("click", () => {
+    document.querySelector("#Signup").style.display = "none";
+    document.querySelector("#Login").style.display = "block";
+    document.querySelector("#forgotp").style.display = "none";
 });
 document.querySelector("#btns").addEventListener("click",signupuser);
 document.querySelector("#btnl").addEventListener("click",loginuser);
+document.querySelector("#btnr").addEventListener("click",resetpassword);

@@ -26,6 +26,17 @@ body{
 .placeholder-red::placeholder {
     color: red;
 }
+#forgot{
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+  text-decoration: none;
+  text-transform: capitalize;
+  color: #339933;
+}
+#forgot:hover{
+  text-decoration: underline;
+}
 .error{
     color: red;
     text-transform: capitalize;
@@ -40,6 +51,10 @@ body{
 }
 form{
   margin-top: 40px;
+}
+.fa-solid{
+  color: red !important;
+  font-size: 1.2rem !important;
 }
 form .field{
   margin-top: 20px;

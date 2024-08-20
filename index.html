@@ -5,6 +5,7 @@
       <title>Glowing Inputs Login Form UI</title>
       <link rel="stylesheet" href="style.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+      <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
    </head>
    <body>
       <div class="login-form" id="Login">
@@ -14,13 +15,14 @@
         <p class="error"></p>
          <form>
             <div class="field">
-               <div class="fas fa-envelope"></div>
+               <div class="fas bx bxs-envelope" id="emailicon"></div>
                <input type="text" placeholder="Email or Phone" id="emaill">
             </div>
             <div class="field">
-               <div class="fas fa-lock"></div>
+               <div class="fas bx bxs-lock"  id="passicon"></div>
                <input type="password" placeholder="Password" id="passwordl">
             </div>
+            <a href="#" id="forgot">forgot password?</a>
             <button id="btnl">LOGIN</button>
             <div class="link">
                Not a member?
@@ -35,17 +37,34 @@
         <p class="error"></p>
          <form>
              <div class="field">
-                 <div class="fas fa-envelope"></div>
+                 <div class="fas bx bxs-envelope" id="emailicons"></div>
                  <input type="text" placeholder="Email or Phone" id="email">
             </div>
             <div class="field">
-               <div class="fas fa-lock"></div>
+               <div class="fas bx bxs-lock" id="passicons"></div>
                <input type="password" placeholder="Password" id="password">
             </div>
             <button id="btns">SIGNUP</button>
             <div class="link">
                Not a member?
                <a href="#" id="logina">Login</a>
+            </div>
+         </form>
+      </div>
+      <div class="Signup-form" id="forgotp" style="display: none;">
+         <div class="text">
+            Reset Password?
+        </div>
+        <p class="error" id="etxt"></p>
+         <form>
+             <div class="field">
+                 <div class="fas bx bxs-envelope" id="emailiconr"></div>
+                 <input type="text" placeholder="Email or Phone" id="emailr">
+            </div>
+            <button id="btnr">Send Email</button>
+            <div class="link">
+               Not a member?
+               <a href="#" id="loginf">Login</a>
             </div>
          </form>
       </div>
