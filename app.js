@@ -24,17 +24,17 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.5/firebas
             }, 2000);
             return
         }
-        else if(password.value == ""){
+        if(password.value == ""){
             password.placeholder = "Plz Provide Password "
             password.classList.add("placeholder-red")
-            passicon.classList.add("bxs-error")
-            passicon.classList.add("bxs-solid")
+            passicon.classList.add("bxs-message-error")
+            passicon.classList.add("fa-solid")
             passicon.classList.remove("fa-lock")
             setTimeout(() => {
                 password.placeholder = "Password"
                 password.classList.remove("placeholder-red")
                 passicon.classList.add("bxs-lock")
-                passicon.classList.remove("bxs-error")
+                passicon.classList.remove("bxs-message-error")
                 passicon.classList.remove("fa-solid")
             }, 2000);
             
@@ -45,23 +45,33 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.5/firebas
         const errorMessage = e.message;
         console.log(errorMessage)
         if(errorMessage == "Firebase: Error (auth/invalid-email)."){
-            let errortxt = document.querySelector(".error")
-            errortxt.textContent = "plz type correct email format!";
+            let errortxt = document.querySelector(".errors")
+            errortxt.innerText = "plz type correct email format!";
             setTimeout(() => {
-                errortxt.textContent = '';
+                errortxt.innerText = '';
             }, 2000);
-        }else if(errorMessage == "Firebase: Error (auth/invalid-credential)."){
-            let errortxt = document.querySelector(".error")
+            return
+        } if(errorMessage == "Firebase: Error (auth/invalid-credential)."){
+            let errortxt = document.querySelector(".errors")
             errortxt.innerText = "email/password is wrong!";
             setTimeout(() => {
-                errortxt.textContent = "";
+                errortxt.innerText = "";
             }, 2000);
-        }else if(errorMessage == "Firebase: Password should be at least 6 characters (auth/weak-password)."){
-            let errortxt = document.querySelector(".error")
+            return
+        } if(errorMessage == "Firebase: Password should be at least 6 characters (auth/weak-password)."){
+            let errortxt = document.querySelector(".errors")
             errortxt.innerText = "password is weak must be 6 characters!";
             setTimeout(() => {
-                errortxt.textContent = "";
+                errortxt.innerText = "";
             }, 2000);
+            return
+        } if(errorMessage == "Firebase: Error (auth/email-already-in-use)"){
+            let errortxt = document.querySelector(".errors")
+            errortxt.innerText = "Email Already Exsit!";
+            setTimeout(() => {
+                errortxt.innerText = "";
+            }, 2000);
+            return
         }
     }
 
@@ -213,3 +223,4 @@ loginfanc.addEventListener("click", () => {
 document.querySelector("#btns").addEventListener("click",signupuser);
 document.querySelector("#btnl").addEventListener("click",loginuser);
 document.querySelector("#btnr").addEventListener("click",resetpassword);
+
