@@ -177,15 +177,15 @@ const resetpassword = async (e) => {
             }, 2000);
             return;
         }
-        //   const methods = await fetchSignInMethodsForEmail(auth, email.value);
-        //   if (methods.length === 0) {
-        //     let errortxt = document.querySelector("#etxt");
-        //     errortxt.innerText = "Email does not exist";
-        //     setTimeout(() => {
-        //       errortxt.innerText = "";
-        //     }, 2000);
-        //     // return;
-        //   }
+          const methods = await fetchSignInMethodsForEmail(auth, email.value);
+          if (methods.length === 0) {
+            let errortxt = document.querySelector("#etxt");
+            errortxt.innerText = "Email does not exist";
+            setTimeout(() => {
+              errortxt.innerText = "";
+            }, 2000);
+            return;
+          }
         await sendPasswordResetEmail(auth, email.value);
         alert("email sent");
     } catch (e) {
