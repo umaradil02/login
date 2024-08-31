@@ -46,7 +46,9 @@ const signupuser = async (e) => {
 
         }
         await createUserWithEmailAndPassword(auth, email.value, password.value)
-        alert("signup successful")
+        alert("signup successful");
+        email.value = "";
+        password.value = "";
     } catch (e) {
         const errorMessage = e.message;
         console.log(errorMessage)
