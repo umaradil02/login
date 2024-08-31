@@ -52,6 +52,15 @@ const signupuser = async (e) => {
     } catch (e) {
         const errorMessage = e.message;
         console.log(errorMessage)
+        if (errorMessage == "Firebase: Error (auth/email-already-in-use).") {
+            console.log("run");
+            let errortxt = document.querySelector(".errors")
+            errortxt.innerText = "Email Already Exsit!";
+            setTimeout(() => {
+                errortxt.innerText = "";
+            }, 2000);
+            return
+        }
         if (errorMessage == "Firebase: Error (auth/invalid-email).") {
             let errortxt = document.querySelector(".errors")
             errortxt.innerText = "plz type correct email format!";
@@ -73,17 +82,11 @@ const signupuser = async (e) => {
                 errortxt.innerText = "";
             }, 2000);
             return
-        } if (errorMessage == "Firebase: Error (auth/email-already-in-use)") {
-            let errortxt = document.querySelector(".errors")
-            errortxt.innerText = "Email Already Exsit!";
-            setTimeout(() => {
-                errortxt.innerText = "";
-            }, 2000);
-            return
-        }
+        } 
     }
 
 }
+
 
 const loginuser = async (e) => {
     e.preventDefault();
