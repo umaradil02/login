@@ -1,6 +1,8 @@
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail, fetchSignInMethodsForEmail, } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail, fetchSignInMethodsForEmail,GoogleAuthProvider, signInWithPopup,FacebookAuthProvider} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import { app } from "./firebase.js";
+const provider = new GoogleAuthProvider();
+const providerf = new FacebookAuthProvider();
 const auth = getAuth(app);
 const signupuser = async (e) => {
     e.preventDefault();
@@ -213,7 +215,40 @@ const resetpassword = async (e) => {
         }
     }
 }
+ const loginwithgoogle =  () =>{
+    signInWithPopup(auth, provider)
+    .then((result) => {
+  
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      const user = result.user;
+      location.href = "login.html"
+      console.log(user)
+    }).catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorMessage)
+    });
+ }
+ const loginwithfacebook = () =>{
+    signInWithPopup(auth, providerf)
+  .then((result) => {
+    const user = result.user;
 
+    const credential = FacebookAuthProvider.credentialFromResult(result);
+    const accessToken = credential.accessToken;
+    location.href = "login.html"
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    const email = error.customData.email;
+    const credential = FacebookAuthProvider.credentialFromError(error);
+    console.log(errorMessage);
+  });
+
+ }
 
 const signupanc = document.querySelector("#Signupa");
 signupanc.addEventListener("click", () => {
@@ -243,4 +278,6 @@ loginfanc.addEventListener("click", () => {
 document.querySelector("#btns").addEventListener("click", signupuser);
 document.querySelector("#btnl").addEventListener("click", loginuser);
 document.querySelector("#btnr").addEventListener("click", resetpassword);
+document.querySelector("#googlebtn").addEventListener("click", loginwithgoogle);
+document.querySelector("#facebookbtn").addEventListener("click", loginwithfacebook);
 
