@@ -239,6 +239,8 @@ const resetpassword = async (e) => {
     const credential = FacebookAuthProvider.credentialFromResult(result);
     const accessToken = credential.accessToken;
     location.href = "login.html"
+    console.log(user);
+    
   })
   .catch((error) => {
     const errorCode = error.code;
