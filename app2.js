@@ -13,14 +13,15 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.5/firebas
 }
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/auth.user
+
     const uid = user.uid;
+    let profilePic =  document.querySelector("#profile");
+    profilePic.src = user.photoURL
+    
     console.log(user)
     // ...
   } else {
-    // User is signed out
-    // ...
+    
   }
 });
 
