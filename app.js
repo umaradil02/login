@@ -4,6 +4,14 @@ import { app } from "./firebase.js";
 const provider = new GoogleAuthProvider();
 const providerf = new FacebookAuthProvider();
 const auth = getAuth(app);
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+  
+   location.href = "login.html"
+    } else {
+      
+    }
+  });
 const signupuser = async (e) => {
     e.preventDefault();
     try {
@@ -28,6 +36,7 @@ const signupuser = async (e) => {
                 email.style.border = ""
 
             }, 2000);
+          
             return
         }
         if (password.value == "") {
@@ -45,10 +54,12 @@ const signupuser = async (e) => {
                 passicon.classList.remove("fa-solid")
                 password.style.border = ""
             }, 2000);
-
+         
+            return;
         }
-        await createUserWithEmailAndPassword(auth, email.value, password.value)
         alert("signup successful");
+        await createUserWithEmailAndPassword(auth, email.value, password.value)
+       
         email.value = "";
         password.value = "";
     } catch (e) {
